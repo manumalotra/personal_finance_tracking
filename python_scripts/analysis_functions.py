@@ -1,8 +1,6 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import calendar
-import tkinter as tk
 
 ##########################################################
 #                 Group income/expenses                  #
@@ -126,9 +124,9 @@ def total_income_and_expenses(income_df, expenses_df):
 
     total_income = income_df['Amount'].sum()
     total_expenses = expenses_df['Amount'].sum()
-    net_income = total_income - total_expenses
+    total_net_income = total_income - total_expenses
 
-    return total_income, total_expenses, net_income
+    return total_income, total_expenses, total_net_income
 
 
 ##########################################################

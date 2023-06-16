@@ -2,8 +2,6 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import analysis_functions as af
-import calendar
-import tkinter as tk
 
 # Set the display options to show all rows and columns
 # pd.set_option('display.max_rows', None)
@@ -17,18 +15,21 @@ import tkinter as tk
 income_df = pd.read_csv('data_files/income.csv')
 
 # Read expenses data from CSV
-expenses_df = pd.read_csv('data_files/expenses2.csv')
+expenses_df = pd.read_csv('data_files/expenses.csv')
 
 
 ##########################################################
 #                   Basic accounting                     #
 ##########################################################
 
-total_income, total_expenses, net_income = af.total_income_and_expenses(income_df, expenses_df)
+total_income, total_expenses, total_net_income = af.total_income_and_expenses(income_df, expenses_df)
 
-# print("Total income:", total_income)
-# print("Total expenses:", total_expenses)
-# print("Net income:", net_income)
+print(
+f"""
+Total income: {total_income}
+Total expenses: {total_expenses}
+Total net income: {total_net_income}
+""")
 
 
 ##########################################################
@@ -95,4 +96,4 @@ income_grouped = af.group_data(income_df)
 #    Plot categorized expenses by year-month (yyyy-mm)   #
 ##########################################################
 
-af.plot_categorized_expenses(expenses_df)
+# af.plot_categorized_expenses(expenses_df)
