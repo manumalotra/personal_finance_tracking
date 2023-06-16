@@ -1,5 +1,4 @@
 import pandas as pd
-import re
 
 ##########################################################
 #   Read CSV files containing income and expense data    #

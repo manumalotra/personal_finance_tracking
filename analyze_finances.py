@@ -1,7 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.linear_model import LinearRegression
 
 ##########################################################
 #   Read CSV files containing income and expense data    #
