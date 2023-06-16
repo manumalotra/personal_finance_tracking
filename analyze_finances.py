@@ -1,6 +1,9 @@
 import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
 import analysis_functions as af
+import calendar
+import tkinter as tk
 
 # Set the display options to show all rows and columns
 # pd.set_option('display.max_rows', None)
@@ -81,37 +84,15 @@ income_grouped = af.group_data(income_df)
 # af.plot_all_expenses(expenses_df)
 
 
-##########################################################
-#        Category expenses by year-month (yyyy-mm)       #
-##########################################################
+#################################################################
+#   Categorized expenses by year-month (yyyy-mm) pivot table    #
+#################################################################
 
-af.categorized_expenses_year_month(expenses_df)
-
-
-##########################################################
-#         Plot net worth by year-month (yyyy-mm)         #
-##########################################################
-
-
+# af.categorized_expenses_year_month(expenses_df)
 
 
 ##########################################################
-#              Median spend by day of week               #
+#    Plot categorized expenses by year-month (yyyy-mm)   #
 ##########################################################
 
-# # Convert 'Date' column to datetime and extract day of the week
-# expenses_df['DayOfWeek'] = expenses_df['Date'].dt.day_name()
-
-# # Group expenses by day of the week and calculate the median spending
-# daily_spending_median = expenses_df.groupby('DayOfWeek')['Amount'].median()
-
-# # Create a bar graph for median daily spending
-# daily_spending_median.plot(kind='bar')
-
-# # Set the labels and title
-# plt.xlabel('Day of the Week')
-# plt.ylabel('Median Spending')
-# plt.title('Median Daily Spending')
-
-# # Display the plot
-# # plt.show()
+af.plot_categorized_expenses(expenses_df)
