@@ -5,10 +5,10 @@ import pandas as pd
 ##########################################################
 
 #Read income data from CSV
-income_df = pd.read_csv('income.csv')
+income_df = pd.read_csv('data_files/income.csv')
 
 # Read expenses data from CSV
-expenses_df = pd.read_csv('expenses.csv')
+expenses_df = pd.read_csv('data_files/expenses.csv')
 
 
 ##########################################################
@@ -38,7 +38,8 @@ dining = [
     'steel wheels pizza', 'subway', 'teapsy', 'the alley brewery', 
     'the pint', 'the sherlock holmes', 'the sugar bowl', 'tim hortons', 
     'uber* eats', 'vegas donair', 'y-not indian', 'jerusalem shawarma',
-    'seoul fried chicken', 'doordash', 'ubereats'
+    'seoul fried chicken', 'doordash', 'ubereats', 'shanghai 360', 
+    'tasty house true boss'
 ]
 
 entertainment = [
@@ -69,7 +70,7 @@ clothes = [
 ]
 
 housing = [
-    'uofa residence'
+    'uofa residence', 'university of a'
 ]
 
 grocery = [
@@ -148,8 +149,8 @@ for description in unique_descriptions:
         if vendor in lowercase_description:
             expenses_df.loc[expenses_df['Description'] == description, 'Category'] = 'Amazon'
 
-# Save the updated DataFrame to a new CSV file
-expenses_df.to_csv('expenses2.csv', index=False)
+# Overwrite expenses.csv with updated DataFrame.
+expenses_df.to_csv('data_files/expenses.csv', index=False)
 
 
 # Set display options to show all columns and rows
@@ -157,7 +158,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 # Read expenses data from CSV
-expenses2_df = pd.read_csv('expenses2.csv')
+expenses2_df = pd.read_csv('data_files/expenses.csv')
 
 # Create a boolean mask to check for empty values in the 'Category' column
 mask = expenses2_df['Category'].isna()

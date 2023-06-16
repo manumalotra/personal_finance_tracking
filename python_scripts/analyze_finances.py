@@ -42,10 +42,10 @@ expenses_grouped = af.group_data(expenses_df)
 
 
 ##########################################################
-#        Plot spending by year-month (yyyy-mm)           #
+#        Plot expenses by year-month (yyyy-mm)           #
 ##########################################################
 
-af.plot_data(expenses_grouped, 'expenses')
+# af.plot_data(expenses_grouped, 'expenses')
 
 
 ##########################################################
@@ -61,7 +61,7 @@ income_grouped = af.group_data(income_df)
 #          Plot income by year-month (yyyy-mm)           #
 ##########################################################
 
-af.plot_data(income_grouped, 'income')
+# af.plot_data(income_grouped, 'income')
 
 
 ##########################################################
@@ -82,7 +82,7 @@ af.plot_data(income_grouped, 'income')
 #          Plot all expenses in descending order         #
 ##########################################################
 
-# af.plot_all_expenses(expenses_df)
+af.plot_all_expenses(expenses_df)
 
 
 #################################################################
