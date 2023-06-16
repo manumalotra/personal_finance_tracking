@@ -14,10 +14,10 @@ import tkinter as tk
 ##########################################################
 
 #Read income data from CSV
-income_df = pd.read_csv('income.csv')
+income_df = pd.read_csv('data_files/income.csv')
 
 # Read expenses data from CSV
-expenses_df = pd.read_csv('expenses2.csv')
+expenses_df = pd.read_csv('data_files/expenses2.csv')
 
 
 ##########################################################
