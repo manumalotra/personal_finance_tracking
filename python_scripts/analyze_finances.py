@@ -24,12 +24,12 @@ expenses_df = pd.read_csv('data_files/expenses.csv')
 
 total_income, total_expenses, total_net_income = af.total_income_and_expenses(income_df, expenses_df)
 
-print(
-f"""
-Total income: {total_income}
-Total expenses: {total_expenses}
-Total net income: {total_net_income}
-""")
+# print(
+# f"""
+# Total income: {total_income}
+# Total expenses: {total_expenses}
+# Total net income: {total_net_income}
+# """)
 
 
 ##########################################################
