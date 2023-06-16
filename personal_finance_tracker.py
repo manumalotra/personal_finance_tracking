@@ -175,7 +175,7 @@ plt.ylabel('Amount Spent')
 plt.title('All Expenses (Descending Order)')
 
 # Display the plot
-plt.show()
+# plt.show()
 
 
 ##########################################################
