@@ -26,16 +26,22 @@ def group_data(dataframe):
 #         Plot income or expenses on bar plot            #
 ##########################################################
 
-def plot_data(grouped_data):
+def plot_data(grouped_data, data_type):
     '''Plots income/expenses grouped by year-month on bar chart.'''
 
     # Create a bar graph
     grouped_data.plot(kind='bar')
 
+    # Set the labels and title based on data_type
+    if data_type == 'income':
+        plt.ylabel('Total Income')
+        plt.title('Income by Year-Month (YYYY-MM)')
+    elif data_type == 'expenses':
+        plt.ylabel('Total Expenses')
+        plt.title('Expenses by Year-Month (YYYY-MM)')
+
     # Set the labels and title
     plt.xlabel('Year-Month')
-    plt.ylabel('Total Income')
-    plt.title('Income by Year-Month')
 
     # Display the plot
     plt.show()
