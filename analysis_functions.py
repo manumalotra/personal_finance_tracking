@@ -102,3 +102,21 @@ def total_income_and_expenses(income_df, expenses_df):
     net_income = total_income - total_expenses
 
     return total_income, total_expenses, net_income
+
+
+def categorized_expenses_year_month(expenses_df):
+
+    # Convert the 'Date' column to datetime type
+    expenses_df['Date'] = pd.to_datetime(expenses_df['Date'])
+
+    # Extract the year and month from the 'Date' column
+    expenses_df['YearMonth'] = expenses_df['Date'].dt.to_period('M')
+
+    # Group the data by 'YearMonth' and 'Category' and calculate the sum of 'Amount'
+    # category_totals = expenses_df.groupby(['YearMonth', 'Category'])['Amount'].sum()
+
+    # Create a pivot table to calculate the sum of 'Amount' for each 'YearMonth' and 'Category'
+    category_totals = expenses_df.pivot_table(index='YearMonth', columns='Category', values='Amount', aggfunc='sum')
+
+    # Print the category totals for each month
+    print(category_totals)

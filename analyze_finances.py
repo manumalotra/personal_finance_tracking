@@ -2,6 +2,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import analysis_functions as af
 
+# Set the display options to show all rows and columns
+# pd.set_option('display.max_rows', None)
+# pd.set_option('display.max_columns', None)
+
 ##########################################################
 #   Read CSV files containing income and expense data    #
 ##########################################################
@@ -10,7 +14,7 @@ import analysis_functions as af
 income_df = pd.read_csv('income.csv')
 
 # Read expenses data from CSV
-expenses_df = pd.read_csv('expenses.csv')
+expenses_df = pd.read_csv('expenses2.csv')
 
 
 ##########################################################
@@ -74,7 +78,14 @@ income_grouped = af.group_data(income_df)
 #          Plot all expenses in descending order         #
 ##########################################################
 
-af.plot_all_expenses(expenses_df)
+# af.plot_all_expenses(expenses_df)
+
+
+##########################################################
+#        Category expenses by year-month (yyyy-mm)       #
+##########################################################
+
+af.categorized_expenses_year_month(expenses_df)
 
 
 ##########################################################
