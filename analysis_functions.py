@@ -1,13 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def read_csv(csv_file):
-    '''Takes a CSV file as input, and stores it in 'df' variable as a DataFrame.
-    This function then returns that DataFrame.'''
-    df = pd.read_csv(csv_file)
-    return df
-
-
 def group_data(dataframe):
     '''Groups the income/expenses in the inputted DataFrame 
     by Year-Month, and returns the grouped expenses.'''
