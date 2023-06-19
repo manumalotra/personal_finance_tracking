@@ -77,18 +77,28 @@ def plot_income_and_expenses(income_grouped, expenses_grouped):
 ##########################################################
 
 def plot_net_income(income_grouped, expenses_grouped):
-    '''Plots net income by year-month on bar chart.'''
 
-    # Calculate net income (income minus expenses)
-    net_income_grouped = income_grouped - expenses_grouped
+    '''Plots net income by year-month on a bar chart.'''
+
+    # Get a unique set of all year-month values from both income and expenses
+    all_year_month = sorted(set(income_grouped.index) | set(expenses_grouped.index))
+
+    # Calculate net income (income minus expenses) for all year-month values
+    net_income_grouped = income_grouped.reindex(all_year_month, fill_value=0) - expenses_grouped.reindex(all_year_month, fill_value=0)
 
     # Create a bar graph for net income
-    net_income_grouped.plot(kind='bar')
+    x_values = net_income_grouped.index.astype(str)  # Convert the index to strings
+    y_values = net_income_grouped.values
+
+    plt.bar(x_values, y_values)
 
     # Set the labels and title
     plt.xlabel('Year-Month')
     plt.ylabel('Net Income')
     plt.title('Net Income by Year-Month')
+
+    # Rotate the x-axis labels by 90 degrees
+    plt.xticks(rotation=90)
 
     # Display the plot
     plt.show()
@@ -167,25 +177,25 @@ def plot_categorized_expenses(expenses_df):
     #            Stacked bar plot              #
     ############################################
 
-    # # Convert the 'Date' column to datetime
-    # expenses_df['Date'] = pd.to_datetime(expenses_df['Date'])
+    # Convert the 'Date' column to datetime
+    expenses_df['Date'] = pd.to_datetime(expenses_df['Date'])
 
-    # # Extract the year and month from the 'Date' column
-    # expenses_df['YearMonth'] = expenses_df['Date'].dt.to_period('M')
+    # Extract the year and month from the 'Date' column
+    expenses_df['YearMonth'] = expenses_df['Date'].dt.to_period('M')
 
-    # # Create a pivot table to get the total expenses in each category for each year-month
-    # pivot_table = expenses_df.pivot_table(index='YearMonth', columns='Category', values='Amount', aggfunc='sum', fill_value=0)
+    # Create a pivot table to get the total expenses in each category for each year-month
+    pivot_table = expenses_df.pivot_table(index='YearMonth', columns='Category', values='Amount', aggfunc='sum', fill_value=0)
 
-    # # Plot the pivot table as a bar plot
-    # pivot_table.plot(kind='bar', stacked=True, figsize=(10, 6))
+    # Plot the pivot table as a bar plot
+    pivot_table.plot(kind='bar', stacked=True, figsize=(10, 6))
 
-    # # Set the labels and title
-    # plt.xlabel('Year-Month')
-    # plt.ylabel('Total Expenses')
-    # plt.title('Categorized Expenses by Year-Month')
+    # Set the labels and title
+    plt.xlabel('Year-Month')
+    plt.ylabel('Total Expenses')
+    plt.title('Categorized Expenses by Year-Month')
 
-    # # Display the plot
-    # plt.show()
+    # Display the plot
+    plt.show()
 
     
     ############################################

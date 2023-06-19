@@ -75,14 +75,14 @@ income_grouped = af.group_data(income_df)
 #         Plot net income by year-month (yyyy-mm)        #
 ##########################################################
 
-# af.plot_net_income(income_grouped, expenses_grouped)
+af.plot_net_income(income_grouped, expenses_grouped)
 
 
 ##########################################################
 #          Plot all expenses in descending order         #
 ##########################################################
 
-af.plot_all_expenses(expenses_df)
+# af.plot_all_expenses(expenses_df)
 
 
 #################################################################
