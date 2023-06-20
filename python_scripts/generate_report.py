@@ -37,8 +37,15 @@ def plot_data(grouped_data, data_type):
     # Display the plot
     # plt.show()
 
+    # Set the desired aspect ratio
+    aspect_ratio = 3/2   # Width:Height
+
+    # Set the figure size based on the desired aspect ratio
+    fig = plt.gcf()
+    fig.set_size_inches(10, 10 / aspect_ratio)  # Adjust the width and height accordingly
+
     plt.savefig('./income_by_year_month.png', 
-                transparent=False,  
+                transparent=False, 
                 facecolor='white', 
                 bbox_inches="tight")
 
