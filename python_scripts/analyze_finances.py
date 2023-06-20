@@ -1,21 +1,38 @@
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 import analysis_functions as af
 
 # Set the display options to show all rows and columns
-# pd.set_option('display.max_rows', None)
-# pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
 
 ##########################################################
 #   Read CSV files containing income and expense data    #
 ##########################################################
 
-#Read income data from CSV
+# Read income data from CSV
 income_df = pd.read_csv('data_files/income.csv')
 
 # Read expenses data from CSV
 expenses_df = pd.read_csv('data_files/expenses.csv')
+
+
+##########################################################
+#        Group income by year and month (yyyy-mm)        #
+##########################################################
+
+income_grouped = af.group_data(income_df)
+
+# print(income_grouped)
+
+
+##########################################################
+#      Group expenses by year and month (yyyy-mm)        #
+##########################################################
+
+expenses_grouped = af.group_data(expenses_df)
+
+# print(expenses_grouped)
 
 
 ##########################################################
@@ -33,12 +50,10 @@ total_income, total_expenses, total_net_income = af.total_income_and_expenses(in
 
 
 ##########################################################
-#      Group expenses by year and month (yyyy-mm)        #
+#          Plot income by year-month (yyyy-mm)           #
 ##########################################################
 
-expenses_grouped = af.group_data(expenses_df)
-
-# print(expenses_grouped)
+# af.plot_data(income_grouped, 'income')
 
 
 ##########################################################
@@ -46,22 +61,6 @@ expenses_grouped = af.group_data(expenses_df)
 ##########################################################
 
 # af.plot_data(expenses_grouped, 'expenses')
-
-
-##########################################################
-#        Group income by year and month (yyyy-mm)        #
-##########################################################
-
-income_grouped = af.group_data(income_df)
-
-# print(income_grouped)
-
-
-##########################################################
-#          Plot income by year-month (yyyy-mm)           #
-##########################################################
-
-# af.plot_data(income_grouped, 'income')
 
 
 ##########################################################
@@ -75,7 +74,7 @@ income_grouped = af.group_data(income_df)
 #         Plot net income by year-month (yyyy-mm)        #
 ##########################################################
 
-af.plot_net_income(income_grouped, expenses_grouped)
+# af.plot_net_income(income_grouped, expenses_grouped)
 
 
 ##########################################################

@@ -61,12 +61,13 @@ education = [
 ]
 
 sports = [
-    'uofa ksr payments', 'decathlon', 'mountain warehouse', 'sport chek', 
+    'uofa ksr payments', 'decathlon', 'sport chek', 
     'everest outdoor stores', 'allsports & cycle', 'wild mountain jasper'
 ]
 
 clothes = [
-    'old navy', 'aldo', 'marshalls', 'h&m ca', 'zara', 'h & m ca', 'winners', 'russell jewellers'
+    'old navy', 'aldo', 'marshalls', 'h&m ca', 'zara', 'h & m ca', 'winners', 
+    'russell jewellers', 'mountain warehouse'
 ]
 
 housing = [
