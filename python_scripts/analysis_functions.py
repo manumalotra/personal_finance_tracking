@@ -44,7 +44,25 @@ def plot_data(grouped_data, data_type):
     plt.xlabel('Year-Month')
 
     # Display the plot
-    plt.show()
+    # plt.show()
+
+    # Set the desired aspect ratio
+    aspect_ratio = 2   # Width:Height
+
+    # Set the figure size based on the desired aspect ratio
+    fig = plt.gcf()
+    fig.set_size_inches(10, 10 / aspect_ratio)  # Adjust the width and height accordingly
+
+    if data_type == 'income':
+        plt.savefig('./income_by_year_month.png', 
+                    transparent=False, 
+                    facecolor='white', 
+                    bbox_inches="tight")
+    elif data_type == 'expenses':
+        plt.savefig('./expenses_by_year_month.png', 
+                    transparent=False, 
+                    facecolor='white', 
+                    bbox_inches="tight")
 
 
 ##########################################################
@@ -63,13 +81,25 @@ def plot_income_and_expenses(income_grouped, expenses_grouped):
     # Set the labels and title
     plt.xlabel('Year-Month')
     plt.ylabel('Amount')
-    plt.title('Expenses vs. Income by Year-Month')
+    plt.title('Income vs. Expenses by Year-Month')
 
     # Add legend
     plt.legend(['Expenses', 'Income'])
 
     # Display the plot
-    plt.show()
+    # plt.show()
+
+    # Set the desired aspect ratio
+    aspect_ratio = 2   # Width:Height
+
+    # Set the figure size based on the desired aspect ratio
+    fig = plt.gcf()
+    fig.set_size_inches(10, 10 / aspect_ratio)  # Adjust the width and height accordingly
+
+    plt.savefig('./income_vs_expenses_by_year_month.png', 
+                    transparent=False, 
+                    facecolor='white', 
+                    bbox_inches="tight")
 
 
 ##########################################################
@@ -101,7 +131,19 @@ def plot_net_income(income_grouped, expenses_grouped):
     plt.xticks(rotation=90)
 
     # Display the plot
-    plt.show()
+    # plt.show()
+
+    # Set the desired aspect ratio
+    aspect_ratio = 2   # Width:Height
+
+    # Set the figure size based on the desired aspect ratio
+    fig = plt.gcf()
+    fig.set_size_inches(10, 10 / aspect_ratio)  # Adjust the width and height accordingly
+
+    plt.savefig('./net_income_by_year_month.png', 
+                    transparent=False, 
+                    facecolor='white', 
+                    bbox_inches="tight")
 
 
 ##########################################################
@@ -195,7 +237,19 @@ def plot_categorized_expenses(expenses_df):
     plt.title('Categorized Expenses by Year-Month')
 
     # Display the plot
-    plt.show()
+    # plt.show()
+
+    # Set the desired aspect ratio
+    aspect_ratio = 2   # Width:Height
+
+    # Set the figure size based on the desired aspect ratio
+    fig = plt.gcf()
+    fig.set_size_inches(10, 10 / aspect_ratio)  # Adjust the width and height accordingly
+
+    plt.savefig('./categorized_expenses_by_year_month.png', 
+                    transparent=False, 
+                    facecolor='white', 
+                    bbox_inches="tight")
 
     
     ############################################
