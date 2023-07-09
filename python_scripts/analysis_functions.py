@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 ##########################################################
 
 def group_data(dataframe):
-    '''Groups the income/expenses in the inputted DataFrame 
-    by Year-Month, and returns the grouped expenses.'''
+    '''Groups the income/expenses in the inputted dataframe 
+    by year-month, and returns the grouped expenses.'''
 
     # Convert 'Date' column to datetime
     dataframe['Date'] = pd.to_datetime(dataframe['Date'])
@@ -75,6 +75,8 @@ def plot_income_and_expenses(income_grouped, expenses_grouped):
     # Merge expense and income data on 'YearMonth' column
     combined_df = pd.merge(expenses_grouped, income_grouped, on='Year-Month', how='outer').fillna(0)
 
+    plt.figure()
+
     # Create a bar graph
     combined_df.plot(kind='bar')
 
@@ -120,7 +122,11 @@ def plot_net_income(income_grouped, expenses_grouped):
     x_values = net_income_grouped.index.astype(str)  # Convert the index to strings
     y_values = net_income_grouped.values
 
-    plt.bar(x_values, y_values)
+    plt.figure()
+
+    net_income_grouped.plot(kind='bar')
+
+    # plt.bar(x_values, y_values)
 
     # Set the labels and title
     plt.xlabel('Year-Month')

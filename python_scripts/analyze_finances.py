@@ -53,28 +53,28 @@ total_income, total_expenses, total_net_income = af.total_income_and_expenses(in
 #          Plot income by year-month (yyyy-mm)           #
 ##########################################################
 
-# af.plot_data(income_grouped, 'income')
+af.plot_data(income_grouped, 'income')
 
 
 ##########################################################
 #        Plot expenses by year-month (yyyy-mm)           #
 ##########################################################
 
-# af.plot_data(expenses_grouped, 'expenses')
+af.plot_data(expenses_grouped, 'expenses')
 
 
 ##########################################################
 #    Plot income and expenses by year-month (yyyy-mm)    #
 ##########################################################
 
-# af.plot_income_and_expenses(income_grouped, expenses_grouped)
+af.plot_income_and_expenses(income_grouped, expenses_grouped)
 
 
 ##########################################################
 #         Plot net income by year-month (yyyy-mm)        #
 ##########################################################
 
-# af.plot_net_income(income_grouped, expenses_grouped)
+af.plot_net_income(income_grouped, expenses_grouped)
 
 
 ##########################################################
