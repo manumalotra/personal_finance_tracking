@@ -29,6 +29,9 @@ def group_data(dataframe):
 def plot_data(grouped_data, data_type):
     '''Plots income/expenses grouped by year-month on bar chart.'''
 
+    # Create a new blank figure.
+    plt.figure()
+
     # Create a bar graph
     grouped_data.plot(kind='bar')
 
@@ -42,9 +45,6 @@ def plot_data(grouped_data, data_type):
 
     # Set the labels and title
     plt.xlabel('Year-Month')
-
-    # Display the plot
-    # plt.show()
 
     # Set the desired aspect ratio
     aspect_ratio = 2   # Width:Height
@@ -75,21 +75,19 @@ def plot_income_and_expenses(income_grouped, expenses_grouped):
     # Merge expense and income data on 'YearMonth' column
     combined_df = pd.merge(expenses_grouped, income_grouped, on='Year-Month', how='outer').fillna(0)
 
+    # Create a new blank figure.
     plt.figure()
 
     # Create a bar graph
     combined_df.plot(kind='bar')
 
-    # Set the labels and title
+    # Set the axis labels and title
     plt.xlabel('Year-Month')
     plt.ylabel('Amount')
     plt.title('Income vs. Expenses by Year-Month')
 
     # Add legend
     plt.legend(['Expenses', 'Income'])
-
-    # Display the plot
-    # plt.show()
 
     # Set the desired aspect ratio
     aspect_ratio = 2   # Width:Height
@@ -109,7 +107,6 @@ def plot_income_and_expenses(income_grouped, expenses_grouped):
 ##########################################################
 
 def plot_net_income(income_grouped, expenses_grouped):
-
     '''Plots net income by year-month on a bar chart.'''
 
     # Get a unique set of all year-month values from both income and expenses
@@ -118,15 +115,15 @@ def plot_net_income(income_grouped, expenses_grouped):
     # Calculate net income (income minus expenses) for all year-month values
     net_income_grouped = income_grouped.reindex(all_year_month, fill_value=0) - expenses_grouped.reindex(all_year_month, fill_value=0)
 
-    # Create a bar graph for net income
+    # Set the x-values and y-values for the bar plot.
     x_values = net_income_grouped.index.astype(str)  # Convert the index to strings
     y_values = net_income_grouped.values
 
+    # Create a new blank figure.
     plt.figure()
 
+    # Create a bar plot.
     net_income_grouped.plot(kind='bar')
-
-    # plt.bar(x_values, y_values)
 
     # Set the labels and title
     plt.xlabel('Year-Month')
@@ -135,9 +132,6 @@ def plot_net_income(income_grouped, expenses_grouped):
 
     # Rotate the x-axis labels by 90 degrees
     plt.xticks(rotation=90)
-
-    # Display the plot
-    # plt.show()
 
     # Set the desired aspect ratio
     aspect_ratio = 2   # Width:Height
@@ -256,167 +250,3 @@ def plot_categorized_expenses(expenses_df):
                     transparent=False, 
                     facecolor='white', 
                     bbox_inches="tight")
-
-    
-    ############################################
-    #           Stacked area plot              #
-    ############################################
-
-    # # Convert the Date column to datetime format
-    # expenses_df['Date'] = pd.to_datetime(expenses_df['Date'])
-
-    # # Extract year and month from the Date column
-    # expenses_df['Year'] = expenses_df['Date'].dt.year
-    # expenses_df['Month'] = expenses_df['Date'].dt.month
-
-    # # Group the data by Year-Month and Category and sum the expenses
-    # grouped_df = expenses_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().unstack()
-
-    # # Create the stacked area plot
-    # plt.figure(figsize=(12, 8))
-    # grouped_df.plot.area(stacked=True)
-
-    # # Customize the plot
-    # plt.title('Categorized Expenses Over Time')
-    # plt.xlabel('Year-Month')
-    # plt.ylabel('Expenses')
-    # plt.legend(title='Category', bbox_to_anchor=(1, 1))
-
-    # # Rotate x-axis labels for better readability
-    # plt.xticks(rotation=45)
-
-    # # Display the plot
-    # plt.show()
-
-
-    ############################################
-    #                Heatmap                   #
-    ############################################
-
-    # # Convert the Date column to datetime format
-    # expenses_df['Date'] = pd.to_datetime(expenses_df['Date'])
-
-    # # Extract year and month from the Date column
-    # expenses_df['Year'] = expenses_df['Date'].dt.year
-    # expenses_df['Month'] = expenses_df['Date'].dt.month
-
-    # # Group the data by Year, Month, and Category and sum the expenses
-    # grouped_df = expenses_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
-
-    # # Pivot the data to have categories as columns and year-month as rows
-    # pivot_df = grouped_df.pivot_table(values='Amount', index='Category', columns=['Year', 'Month'], fill_value=0)
-
-    # # Add a row for Total Expenses
-    # total_expenses = pivot_df.sum(axis=0)
-    # pivot_df.loc['Total Expenses'] = total_expenses
-
-    # # Create a heatmap
-    # plt.figure(figsize=(12, 8))
-    # sns.heatmap(pivot_df, cmap='YlGnBu')
-
-    # # Customize the chart
-    # plt.title('Categorized Expenses Heatmap')
-    # plt.xlabel('Year-Month')
-    # plt.ylabel('Category')
-
-    # # Rotate the x-axis labels for better visibility
-    # plt.xticks(rotation=90)
-
-    # # Display the chart
-    # plt.show()
-
-
-    ############################################
-    #          Categorized pie chart           #
-    ############################################
-
-    # # Convert the Date column to datetime format
-    # expenses_df['Date'] = pd.to_datetime(expenses_df['Date'])
-
-    # # Extract year and month from the Date column
-    # expenses_df['Year'] = expenses_df['Date'].dt.year
-    # expenses_df['Month'] = expenses_df['Date'].dt.month
-
-    # # Group the data by Year, Month, and Category and sum the expenses
-    # grouped_df = expenses_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
-
-    # # Loop through each year-month and create a pie chart
-    # for _, data in grouped_df.groupby(['Year', 'Month']):
-    #     year, month = _
-    #     categories = data['Category']
-    #     expenses = data['Amount']
-
-    #     # Create the pie chart
-    #     plt.figure(figsize=(6, 6))
-    #     plt.pie(expenses, labels=categories, autopct='%1.1f%%', startangle=90)
-
-    #     # Customize the chart
-    #     plt.title(f'Categorized Expenses - {year}-{month:02d}')
-
-    #     # Display the chart
-    #     plt.show()
-
-
-    ############################################
-    #         Categorized line chart           #
-    ############################################
-
-    # # Convert the Date column to datetime format
-    # expenses_df['Date'] = pd.to_datetime(expenses_df['Date'])
-
-    # # Extract year and month from the Date column
-    # expenses_df['Year'] = expenses_df['Date'].dt.year
-    # expenses_df['Month'] = expenses_df['Date'].dt.month
-
-    # # Group the data by Category and Year-Month and sum the expenses
-    # grouped_df = expenses_df.groupby(['Category', 'Year', 'Month'])['Amount'].sum().reset_index()
-
-    # # Loop through each category and create a line chart
-    # for category in expenses_df['Category'].unique():
-    #     category_data = grouped_df[grouped_df['Category'] == category]
-    #     year_month = category_data['Year'].astype(str) + '-' + category_data['Month'].astype(str).str.zfill(2)
-    #     expenses = category_data['Amount']
-
-    #     # Create the line chart
-    #     plt.figure(figsize=(10, 6))
-    #     plt.plot(year_month, expenses, marker='o')
-
-    #     # Customize the chart
-    #     plt.title(f'Expenses Over Time - Category: {category}')
-    #     plt.xlabel('Year-Month')
-    #     plt.ylabel('Expenses')
-
-    #     # Rotate x-axis labels for better readability
-    #     plt.xticks(rotation=45)
-
-    #     # Display the chart
-    #     plt.show()
-
-    pass
-
-
-##########################################################
-#            Median spending by day of week              #
-##########################################################
-
-# # Convert 'Date' column to datetime and extract day of the week
-# expenses_df['DayOfWeek'] = expenses_df['Date'].dt.day_name()
-
-# # Group expenses by day of the week and calculate the median spending
-# daily_spending_median = expenses_df.groupby('DayOfWeek')['Amount'].median()
-
-# # Create a bar graph for median daily spending
-# daily_spending_median.plot(kind='bar')
-
-# # Set the labels and title
-# plt.xlabel('Day of the Week')
-# plt.ylabel('Median Spending')
-# plt.title('Median Daily Spending')
-
-# # Display the plot
-# # plt.show()
-
-
-##########################################################
-#         Plot net worth by year-month (yyyy-mm)         #
-##########################################################
