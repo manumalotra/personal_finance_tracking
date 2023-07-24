@@ -41,24 +41,8 @@ def generate_pdf_report(income_df_path, expenses_df_path):
     report_date = Paragraph("Date: " + str(date.today()), styles['Normal'])
     report_author = Paragraph("Author: Manu Malotra", styles['Normal'])
 
-    # Table for income data
-    income_data = [['Year-Month', 'Income']]
-    for year_month, income in income_grouped.items():
-        income_data.append([year_month, income])
-
-    income_table = Table(income_data, colWidths=[3*inch, 1.5*inch])
-    income_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.gray),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black)
-    ]))
-
     # Add all elements to the PDF
-    elements = [report_title, report_date, report_author, income_table]
+    elements = [report_title, report_date, report_author]
 
     # Add images to the PDF
     image_paths = [
@@ -68,7 +52,6 @@ def generate_pdf_report(income_df_path, expenses_df_path):
         './net_income_by_year_month.png',
         './categorized_expenses_by_year_month.png',
         './average_expenses_by_year_month.png'
-
     ]
 
     for image_path in image_paths:
