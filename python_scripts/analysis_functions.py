@@ -249,3 +249,51 @@ def plot_categorized_expenses(expenses_df):
                     transparent=False, 
                     facecolor='white', 
                     bbox_inches="tight")
+
+
+def plot_expenses_rolling_average_bar_past_3_months(expenses_df):
+    '''Plots the rolling average of expenses by year-month for the past 3 months as a bar chart.'''
+
+    # Convert the Date column to datetime if it's not already in that format
+    if not pd.api.types.is_datetime64_any_dtype(expenses_df['Date']):
+        expenses_df['Date'] = pd.to_datetime(expenses_df['Date'])
+
+    # Group the expenses by year-month
+    grouped_data = expenses_df.groupby(pd.Grouper(key='Date', freq='M')).sum()
+
+    # Calculate the rolling average for expenses using the past 3 months' data
+    rolling_window = 3
+    rolling_average = grouped_data['Amount'].rolling(window=rolling_window, min_periods=1).mean()
+
+    # Create a new blank figure.
+    plt.figure()
+
+    # Plot the rolling average as a bar chart
+    plt.bar(grouped_data.index, rolling_average, color='blue', width=20, label=f'{rolling_window}-Month Rolling Average')
+
+    # Set the labels and title
+    plt.xlabel('Year-Month')
+    plt.ylabel('Expenses Rolling Average')
+    plt.title(f'Rolling Average of Expenses by Year-Month (Past {rolling_window} Months)')
+
+    # Add a legend
+    plt.legend()
+
+    # Set the desired aspect ratio
+    aspect_ratio = 2   # Width:Height
+
+    # Set the figure size based on the desired aspect ratio
+    fig = plt.gcf()
+    fig.set_size_inches(10, 10 / aspect_ratio)  # Adjust the width and height accordingly
+
+    # Set x-axis tick positions and labels for all year-months
+    plt.xticks(grouped_data.index, grouped_data.index.strftime('%Y-%m'), rotation=45, ha='right')
+
+    plt.savefig('./average_expenses_by_year_month.png', 
+                    transparent=False, 
+                    facecolor='white', 
+                    bbox_inches="tight")
+
+    # Display the plot
+    # plt.tight_layout()
+    # plt.show()

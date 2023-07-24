@@ -1,14 +1,7 @@
 import pandas as pd
 import vendors
 
-##########################################################
-#   Read CSV files containing income and expense data    #
-##########################################################
-
-# Read income data from CSV
-# income_df = pd.read_csv('data_files/income.csv')
-
-# Read expenses data from CSV
+# Read expenses data from CSV.
 expenses_df = pd.read_csv('data_files/expenses.csv')
 
 

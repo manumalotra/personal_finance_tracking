@@ -5,9 +5,6 @@ import analysis_functions as af
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
-
-# Read CSV files containing income and expense data:s
-
 # Read income data from CSV and create income dataframe.
 income_df = pd.read_csv('data_files/income.csv')
 
@@ -26,7 +23,7 @@ af.plot_data(income_grouped, 'income')
 # Plot expenses by year-month (yyyy-mm)
 af.plot_data(expenses_grouped, 'expenses')
 
-# Plot income and expenses by year-month (yyyy-mm)
+# Plot income vs. expenses by year-month (yyyy-mm)
 af.plot_income_and_expenses(income_grouped, expenses_grouped)
 
 # Plot net income by year-month (yyyy-mm)
@@ -34,3 +31,6 @@ af.plot_net_income(income_grouped, expenses_grouped)
 
 # Plot categorized expenses by year-month (yyyy-mm)
 af.plot_categorized_expenses(expenses_df)
+
+# Plot rolling average of expenses by year-month (yyyy-mm)
+af.plot_expenses_rolling_average_bar_past_3_months(expenses_df)

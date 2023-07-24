@@ -26,6 +26,9 @@ af.plot_net_income(income_grouped, expenses_grouped)
 # Plot categorized expenses by year-month.
 af.plot_categorized_expenses(expenses_df)
 
+# Plot rolling average of expenses by year-month (yyyy-mm)
+af.plot_expenses_rolling_average_bar_past_3_months(expenses_df)
+
 ##########################################################
 #                    Create PDF file                     #
 ##########################################################
