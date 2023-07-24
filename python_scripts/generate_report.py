@@ -2,62 +2,66 @@ from fpdf import FPDF
 import pandas as pd
 import matplotlib.pyplot as plt
 import analysis_functions as af
+from datetime import date
 
-# Read income and expenses data from CSV
-income_df = pd.read_csv('data_files/income.csv')
-expenses_df = pd.read_csv('data_files/expenses.csv')
+# Function to read data from CSV and group by year-month
+def read_and_group_data(file_path):
+    df = pd.read_csv(file_path)
+    return af.group_data(df)
 
-# Group income and expenses data by year-month.
-income_grouped = af.group_data(income_df)
-expenses_grouped = af.group_data(expenses_df)
+# Function to generate income and expenses plots
+def generate_plots(income_grouped, expenses_grouped, expenses_df):
+    af.plot_data(income_grouped, 'income')
+    af.plot_data(expenses_grouped, 'expenses')
+    af.plot_income_and_expenses(income_grouped, expenses_grouped)
+    af.plot_net_income(income_grouped, expenses_grouped)
+    af.plot_categorized_expenses(expenses_df)
+    af.plot_expenses_rolling_average_bar_past_3_months(expenses_df)
 
-# Plot income by year-month.
-af.plot_data(income_grouped, 'income')
+# Function to generate the PDF report
+def generate_pdf_report(income_df_path, expenses_df_path):
+    # Read income and expenses data from CSV and group by year-month
+    income_grouped = read_and_group_data(income_df_path)
+    expenses_grouped = read_and_group_data(expenses_df_path)
 
-# Plot expenses by year-month.
-af.plot_data(expenses_grouped, 'expenses')
+    # Generate plots
+    generate_plots(income_grouped, expenses_grouped, pd.read_csv(expenses_df_path))
 
-# Plot income and expenses by year-month.
-af.plot_income_and_expenses(income_grouped, expenses_grouped)
+    # Create PDF file
+    pdf = FPDF()
+    pdf.add_page()
 
-# Plot net income by year-month.
-af.plot_net_income(income_grouped, expenses_grouped)
+    # Set font and report header
+    pdf.set_font('Arial', 'B', 20)
+    pdf.cell(w=0, h=10, txt="Manu's Personal Finances Report", ln=1)
 
-# Plot categorized expenses by year-month.
-af.plot_categorized_expenses(expenses_df)
+    # Add report details
+    pdf.set_font('Arial', '', 16)
+    pdf.cell(w=30, h=10, txt="Date: ", ln=0)
+    pdf.cell(w=30, h=10, txt=str(date.today()), ln=1)  # Display current date
+    pdf.cell(w=30, h=10, txt="Author: ", ln=0)
+    pdf.cell(w=30, h=10, txt="Manu Malotra", ln=1)
 
-# Plot rolling average of expenses by year-month (yyyy-mm)
-af.plot_expenses_rolling_average_bar_past_3_months(expenses_df)
+    # Add images to the PDF
+    image_width = 175
+    image_height = 0  # Automatic height to maintain aspect ratio
+    image_paths = [
+        './income_by_year_month.png',
+        './expenses_by_year_month.png',
+        './income_vs_expenses_by_year_month.png',
+        './net_income_by_year_month.png',
+        './categorized_expenses_by_year_month.png',
+        './average_expenses_by_year_month.png'
+    ]
 
-##########################################################
-#                    Create PDF file                     #
-##########################################################
+    for image_path in image_paths:
+        pdf.image(image_path, x=10, y=None, w=image_width, h=image_height, type='PNG')
 
-pdf = FPDF()
-pdf.add_page()
+    # Save the PDF report
+    pdf.output('./example.pdf', 'F')
 
-pdf.set_font('Arial', 'B', 20)
-pdf.cell(w=0, h=10, txt="Manu's Personal Finances Report", ln=1)
-
-pdf.set_font('Arial', '', 16)
-pdf.cell(w=30, h=10, txt="Date: ", ln=0)
-pdf.cell(w=30, h=10, txt="2023-06-20", ln=1)
-pdf.cell(w=30, h=10, txt="Author: ", ln=0)
-pdf.cell(w=30, h=10, txt="Manu Malotra", ln=1)
-
-pdf.image('./income_by_year_month.png', 
-          x = 10, y = None, w = 175, h = 0, type = 'PNG')
-
-pdf.image('./expenses_by_year_month.png', 
-          x = 10, y = None, w = 175, h = 0, type = 'PNG')
-
-pdf.image('./income_vs_expenses_by_year_month.png', 
-          x = 10, y = None, w = 175, h = 0, type = 'PNG')
-
-pdf.image('./net_income_by_year_month.png', 
-          x = 10, y = None, w = 175, h = 0, type = 'PNG')
-
-pdf.image('./categorized_expenses_by_year_month.png', 
-          x = 10, y = None, w = 175, h = 0, type = 'PNG')
-
-pdf.output(f'./example.pdf', 'F')
+if __name__ == "__main__":
+    # Update the file paths accordingly
+    income_file_path = 'data_files/income.csv'
+    expenses_file_path = 'data_files/expenses.csv'
+    generate_pdf_report(income_file_path, expenses_file_path)
