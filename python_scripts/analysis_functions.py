@@ -293,7 +293,3 @@ def plot_expenses_rolling_average_bar_past_3_months(expenses_df):
                     transparent=False, 
                     facecolor='white', 
                     bbox_inches="tight")
-
-    # Display the plot
-    # plt.tight_layout()
-    # plt.show()

@@ -3,6 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import analysis_functions as af
 from datetime import date
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image
+from reportlab.lib.styles import getSampleStyleSheet
 
 # Function to read data from CSV and group by year-month
 def read_and_group_data(file_path):
@@ -27,24 +32,35 @@ def generate_pdf_report(income_df_path, expenses_df_path):
     # Generate plots
     generate_plots(income_grouped, expenses_grouped, pd.read_csv(expenses_df_path))
 
-    # Create PDF file
-    pdf = FPDF()
-    pdf.add_page()
+    # Create PDF file using reportlab
+    doc = SimpleDocTemplate("./example_report.pdf", pagesize=letter)
 
-    # Set font and report header
-    pdf.set_font('Arial', 'B', 20)
-    pdf.cell(w=0, h=10, txt="Manu's Personal Finances Report", ln=1)
+    # Report title
+    styles = getSampleStyleSheet()
+    report_title = Paragraph("Manu's Personal Finances Report", styles['Title'])
+    report_date = Paragraph("Date: " + str(date.today()), styles['Normal'])
+    report_author = Paragraph("Author: Manu Malotra", styles['Normal'])
 
-    # Add report details
-    pdf.set_font('Arial', '', 16)
-    pdf.cell(w=30, h=10, txt="Date: ", ln=0)
-    pdf.cell(w=30, h=10, txt=str(date.today()), ln=1)  # Display current date
-    pdf.cell(w=30, h=10, txt="Author: ", ln=0)
-    pdf.cell(w=30, h=10, txt="Manu Malotra", ln=1)
+    # Table for income data
+    income_data = [['Year-Month', 'Income']]
+    for year_month, income in income_grouped.items():
+        income_data.append([year_month, income])
+
+    income_table = Table(income_data, colWidths=[3*inch, 1.5*inch])
+    income_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.gray),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ]))
+
+    # Add all elements to the PDF
+    elements = [report_title, report_date, report_author, income_table]
 
     # Add images to the PDF
-    image_width = 175
-    image_height = 0  # Automatic height to maintain aspect ratio
     image_paths = [
         './income_by_year_month.png',
         './expenses_by_year_month.png',
@@ -52,13 +68,14 @@ def generate_pdf_report(income_df_path, expenses_df_path):
         './net_income_by_year_month.png',
         './categorized_expenses_by_year_month.png',
         './average_expenses_by_year_month.png'
+
     ]
 
     for image_path in image_paths:
-        pdf.image(image_path, x=10, y=None, w=image_width, h=image_height, type='PNG')
+        elements.append(Image(image_path, width=6*inch, height=3*inch))
 
-    # Save the PDF report
-    pdf.output('./example.pdf', 'F')
+    # Build the PDF
+    doc.build(elements)
 
 if __name__ == "__main__":
     # Update the file paths accordingly
